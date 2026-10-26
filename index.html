@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Accesso Lista Nascita</title>
+  <style>
+    body { font-family: sans-serif; text-align: center; padding-top: 20%; color: #333; }
+    .loader { margin-top: 20px; font-size: 1.2em; }
+  </style>
+</head>
+<body>
+  <h2>Ti stiamo portando alla Lista Nascita... 🍼</h2>
+  <div class="loader">Attendi un istante...</div>
+
+  <form id="autoLogin" method="POST" action="https://liste.nido.it/online_globali/chk_clienti_pa.asp" style="display:none;">
+    <input type="hidden" name="USR" id="usr">
+    <input type="hidden" name="PWD" id="pwd">
+  </form>
+
+  <script>
+    window.onload = function() {
+      // Legge i parametri passati dopo il cancelletto '#'
+      var hash = window.location.hash.substring(1);
+      var params = new URLSearchParams(hash);
+      
+      var u = params.get('u');
+      var p = params.get('p');
+
+      if (u && p) {
+        document.getElementById('usr').value = u;
+        document.getElementById('pwd').value = p;
+        document.getElementById('autoLogin').submit();
+      } else {
+        document.body.innerHTML = "<h3>Errore: link non valido o dati mancanti.</h3>";
+      }
+    };
+  </script>
+</body>
+</html>
